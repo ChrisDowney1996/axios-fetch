@@ -15,6 +15,7 @@ axios.cancelFetch = (nowBrand) => {
     } else if (pending[p].brand === nowBrand) {
       pending[p].cancel()
       pending.splice(p, 1)
+      break
     }
   }
 }
@@ -56,6 +57,7 @@ function clearPending (cancelBrand) {
     for (const p in pending) {
       if (pending[p].brand === cancelBrand) {
         pending.splice(p, 1)
+        break
       }
     }
   } else {
