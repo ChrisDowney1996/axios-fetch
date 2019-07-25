@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const pending = [] // 声明一个数组用于存储每个ajax请求的取消函数和ajax标识 Loading
+const pending = [] // 声明一个数组用于存储每个ajax请求的取消函数和ajax标识
 const CancelToken = axios.CancelToken
 
 /**
@@ -28,12 +28,40 @@ axios.interceptors.request.use((config) => {
     // 先取消有相同请求的请求
     axios.cancelFetch(brand)
     // 设置取消令牌
+    config.cancelBrand = brand
     config.cancelToken = new CancelToken((cancel) => {
       pending.push({brand, cancel, config})
     })
   }
   return config
 })
+
+axios.interceptors.response.use((response) => {
+  const {config: {cancelBrand}} = response
+  cancelBrand && clearPending(cancelBrand)
+
+  return response
+}, (error) => {
+  const {config} = error
+  if (config) {
+    const {cancelBrand} = config
+    cancelBrand && clearPending(cancelBrand)
+  }
+
+  return error
+})
+
+function clearPending (cancelBrand) {
+  if (cancelBrand) {
+    for (const p in pending) {
+      if (pending[p].brand === cancelBrand) {
+        pending.splice(p, 1)
+      }
+    }
+  } else {
+    pending.length = 0
+  }
+}
 
 export {
   axios
