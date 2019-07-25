@@ -1,6 +1,6 @@
 {
   "name": "axios-shim",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A tool that automatically cancels duplicate requests based on axios",
   "main": "src/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "author": "ChrisDowney\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[C Downey",
   "license": "MIT",
- 
+
   "bugs": {
     "url": "https://github.com/ChrisDowney1996/axios-shim/issues"
   },
